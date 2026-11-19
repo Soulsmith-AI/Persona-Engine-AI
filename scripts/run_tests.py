@@ -195,7 +195,23 @@ class Runner:
         out["seconds"] = round(time.time() - t0, 1)
         self.raw.write(json.dumps({"prompt": prompt, "home": home, **out}, ensure_ascii=False) + "\n")
         self.raw.flush()
+        if out["error"] and is_auth_error(out["result"]):
+            self.raw.close()
+            sys.exit(
+                f"\n{self.claude} 没有登录，后面的测试都会失败，已提前停止。\n"
+                f"Claude 回复：{out['result'].strip()[:200]}\n"
+                "请先在终端运行 claude 并登录，或用 --claude 指向一个已登录的 claude。\n"
+                "注意：桌面端的登录不会共享给单独安装的命令行版。")
         return out
+
+
+AUTH_ERROR_MARKERS = ("not logged in", "please run /login", "invalid api key",
+                      "authentication_error", "oauth token has expired")
+
+
+def is_auth_error(text):
+    t = (text or "").lower()
+    return any(m in t for m in AUTH_ERROR_MARKERS)
 
 
 # ---------------------------------------------------------------------------
