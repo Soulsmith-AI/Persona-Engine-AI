@@ -1,0 +1,21 @@
+{
+  "name": "persona-engine",
+  "displayName": "Persona Engine 人格引擎",
+  "version": "0.1.2",
+  "description": "让 Claude Code 拥有会成长的人格：星座定出生设定，MBTI 定思维方式，大五人格随经历慢慢改变，并带有实时情绪与成长日志。",
+  "author": {
+    "name": "Soulsmith-AI"
+  },
+  "license": "MIT",
+  "keywords": [
+    "persona",
+    "personality",
+    "emotion",
+    "big-five",
+    "mbti",
+    "zodiac",
+    "人格",
+    "情绪"
+  ],
+  "icon": "./.claude-plugin/icon.png"
+}

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# 本地测试输出（含人格状态副本）
+persona-test-runs/
+
+# 编辑器 / 环境
+.vscode/
+.idea/
+.venv/
+venv/
+*.log
