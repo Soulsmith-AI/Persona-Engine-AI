@@ -8,13 +8,14 @@ argument-hint: "[show | me | log | card | reflect | correct <维度> <数值> | 
 
 人格引擎是你（Claude）自己的人格：星座是出生设定，MBTI 是思维方式，大五人格随经历慢慢改变，情绪每轮起伏。所有数据只存在用户电脑的 `~/.persona-engine/` 里。
 
-引擎命令（用 Bash 工具运行）：
+引擎命令（用 Bash 工具运行，和钩子使用同一个 Python 命令）：
 
 ```
-python "${CLAUDE_PLUGIN_ROOT}/scripts/persona.py" <子命令>
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/persona.py" <子命令>    # macOS / Linux
+python "${CLAUDE_PLUGIN_ROOT}/scripts/persona.py" <子命令>     # Windows
 ```
 
-（和 hooks 一样用 `python`。Windows 上的 `python3` 往往是微软商店的占位程序，会直接失败；只有在 `python` 不存在时才改用 `python3`。）
+（Windows 上的 `python3` 往往是微软商店的占位程序，会直接失败，所以 Windows 上一定用 `python`；macOS 上通常只有 `python3`。）
 
 用户这次的参数是：`$ARGUMENTS`
 

@@ -1,12 +1,19 @@
 {
   "name": "persona-engine",
-  "owner": { "name": "Soulsmith-AI" },
+  "owner": {
+    "name": "Soulsmith-AI"
+  },
   "description": "Persona Engine 人格引擎",
   "plugins": [
     {
       "name": "persona-engine",
       "source": ".",
-      "description": "让 Claude Code 拥有会成长的人格与情绪"
+      "description": "让 Claude Code 拥有会成长的人格与情绪（macOS / Linux）"
+    },
+    {
+      "name": "persona-engine-windows",
+      "source": "./windows",
+      "description": "让 Claude Code 拥有会成长的人格与情绪（Windows）"
     }
   ]
 }
