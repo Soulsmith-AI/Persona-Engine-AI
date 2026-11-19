@@ -160,16 +160,24 @@ def install_statusline(force=False):
                 print(json.dumps({"statusLine": {"type": "command", "command": statusline_command()}},
                                  ensure_ascii=False, indent=2))
                 return 1
-        shutil.copy2(p, p + ".persona-backup")
     existing = settings.get("statusLine")
     if existing and "persona.py" not in json.dumps(existing) and not force:
         print("你已经有自己的状态栏配置，为避免覆盖，没有修改。")
         print("如果确定要替换，运行：persona.py install-statusline --force（会先备份原文件）")
         return 1
+    # Back up only once, right before the first real write, so the
+    # pre-install original is never overwritten by later reinstalls.
+    backup = p + ".persona-backup"
+    if os.path.exists(p) and not os.path.exists(backup):
+        shutil.copy2(p, backup)
     settings["statusLine"] = {"type": "command", "command": statusline_command()}
     with open(p, "w", encoding="utf-8") as f:
         json.dump(settings, f, ensure_ascii=False, indent=2)
-    print(f"已安装状态栏（{p}，原文件备份为 settings.json.persona-backup）。重启 Claude Code 后生效。")
+    if os.path.exists(backup):
+        note = f"安装前的原文件备份在 {backup}"
+    else:
+        note = "安装前没有 settings.json，无需备份"
+    print(f"已安装状态栏（{p}，{note}）。重启 Claude Code 后生效。")
     return 0
 
 
