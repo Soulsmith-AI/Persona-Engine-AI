@@ -41,23 +41,47 @@
 
 ## 安装
 
-需要：Claude Code，以及 Python 3.8 或更高版本（只用标准库，不需要装任何依赖）。钩子直接调用 `python` 命令（不经过 shell），所以在终端里运行 `python --version` 必须能看到版本号。
+需要：Claude Code，以及 Python 3.8 或更高版本（只用标准库，不需要装任何依赖）。
 
-> 目前版本优先适配 Windows。macOS 上如果只有 `python3`、没有 `python` 命令，需要先建立一个 `python` 别名；正式版会解决这个问题。
+插件分两个版本，代码完全相同，只是调用 Python 的命令名不同。钩子不经过 shell 直接运行，所以 Windows 上不需要 Git Bash。
+
+| 系统 | 安装的插件 | 先确认终端里这条命令能显示版本号 |
+|---|---|---|
+| macOS / Linux | `persona-engine` | `python3 --version` |
+| Windows | `persona-engine-windows` | `python --version` |
 
 在 Claude Code 里运行：
 
 ```
 /plugin marketplace add Soulsmith-AI/Persona-Engine-AI
-/plugin install persona-engine@persona-engine
 ```
 
-然后重启 Claude Code。第一次开始会话时，它会“诞生”，并向你做自我介绍。
+然后按系统二选一：
+
+```
+/plugin install persona-engine@persona-engine            # macOS / Linux
+/plugin install persona-engine-windows@persona-engine    # Windows
+```
+
+重启 Claude Code。第一次开始会话时，它会“诞生”，并向你做自我介绍。
+
+> macOS 第一次运行 `python3` 时，如果系统提示安装“命令行开发者工具”，点安装即可。
+>
+> Windows 上 Python 建议从 python.org 安装，安装时勾选“Add python.exe to PATH”。如果输入 `python` 会弹出微软应用商店，到“设置 → 应用 → 高级应用设置 → 应用执行别名”里关掉 `python.exe` 和 `python3.exe`。
+
+**从 0.1.2 及更早版本升级的 Windows 用户**：`persona-engine` 现在专门给 macOS / Linux 用。请先卸载旧版，再装 Windows 版；人格数据保存在 `~/.persona-engine`，不会丢失。
+
+```
+/plugin uninstall persona-engine@persona-engine
+/plugin marketplace update persona-engine
+/plugin install persona-engine-windows@persona-engine
+```
 
 本地试用（不经过 GitHub）：
 
 ```
-claude --plugin-dir /path/to/persona-engine
+claude --plugin-dir /path/to/Persona-Engine-AI            # macOS / Linux
+claude --plugin-dir C:\path\to\Persona-Engine-AI\windows  # Windows
 ```
 
 ### 状态栏（推荐）
@@ -65,7 +89,8 @@ claude --plugin-dir /path/to/persona-engine
 在 Claude Code 里输入 `/persona-engine:persona statusline`，或者直接运行：
 
 ```
-python ~/.persona-engine/app/scripts/persona.py install-statusline
+python3 ~/.persona-engine/app/scripts/persona.py install-statusline   # macOS / Linux
+python ~/.persona-engine/app/scripts/persona.py install-statusline    # Windows
 ```
 
 底部会实时显示：
@@ -151,7 +176,8 @@ python scripts/run_tests.py --fresh      # 用全新人格测试
 ## 开发
 
 ```
-python -m unittest discover -s tests -v
+python3 tools/sync_windows.py                 # 改完代码后，同步生成 windows/ 版本（Windows 上用 python）
+python3 -m unittest discover -s tests -v      # 测试会检查两个版本是否一致
 ```
 
 ## License

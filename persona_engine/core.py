@@ -13,7 +13,7 @@ import time
 
 from . import data as D
 
-VERSION = "0.1.2"
+VERSION = "0.1.3"
 STATE_VERSION = 2
 
 TRAIT_MIN, TRAIT_MAX = 15.0, 85.0
