@@ -48,7 +48,7 @@
 在 Claude Code 里运行：
 
 ```
-/plugin marketplace add Soulsmith-AI/persona-engine
+/plugin marketplace add Soulsmith-AI/Persona-Engine-AI
 /plugin install persona-engine@persona-engine
 ```
 
